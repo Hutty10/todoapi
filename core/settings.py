@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
 from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-yh^mh=ozgik$v+3qel*8$%^=ky=uo4q2*8_2hofo%(p_j7wqnj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','localhost']
 
 
 # Application definition
@@ -144,6 +144,7 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'NON_FIELD_ERRORS_KEY': 'error',
+    'EXCEPTION_HANDLER': 'utils.execption_handler.custom_exception_handler'
 }
 
 # jwt settings
@@ -157,9 +158,13 @@ SIMPLE_JWT = {
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-
-
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'sin-v3.mailjet.com'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 25
+# EMAIL_HOST_USER = 'tf656689c40a742aa69d7aaef612a674e'
+# EMAIL_HOST_PASSWORD = 'a85a38a04fb3aee8546b7db503acd1b9'
+# EMAIL_USE_SSL = False
 
 # cors headers
 

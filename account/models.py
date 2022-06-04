@@ -1,3 +1,5 @@
+import threading
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
@@ -7,6 +9,14 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 # Create your models here.
 
+class EmailThreading(threading.Thread):
+
+    def __init__(self, email) -> None:
+        self.email = email
+        threading.Thread.__init__(self)
+
+    def run(self):
+        self.email.send()
 
 class UserManager(BaseUserManager):
 
@@ -67,7 +77,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def send_email(self, email_subject, email_body):
         email = EmailMessage(subject=email_subject, body=email_body, to=[self.email])
-        email.send()
+        # email.send()
+        EmailThreading(email).start()
 
     def __str__(self) -> str:
         return self.username

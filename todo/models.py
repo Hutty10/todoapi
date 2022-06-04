@@ -17,6 +17,7 @@ class Todo(models.Model):
     title = models.CharField(verbose_name=_('Todo title'), max_length=150)
     description = models.TextField(verbose_name=_('Todo description'), blank=True)
     status = models.CharField(verbose_name=_('Status'), default='created', max_length=7)
+    start = models.DateTimeField(verbose_name=_('Start date'))
     updated = models.DateTimeField(_("Date Updated"), auto_now=True)
     created = models.DateTimeField(verbose_name=_('Date created'), auto_now_add=True)
 

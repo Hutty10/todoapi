@@ -68,11 +68,11 @@ class LoginSerializer(serializers.ModelSerializer):
 
 
 
-class RequestPasswordResetEmailSerializer(serializers.ModelSerializer):
+class RequestPasswordResetEmailSerializer(serializers.Serializer):
     email = serializers.EmailField(max_length=254)
+    redirect_url = serializers.CharField(max_length=50, required=False)
 
     class Meta:
-        model = User
         fields = ['email']
 
 
@@ -98,6 +98,7 @@ class SetNewPasswordSerializer(serializers.Serializer):
             
             user.set_password(password)
             user.save()
+            return (user)
         except Exception as e:
             raise AuthenticationFailed('The reset link is invalid', 401)
         return super().validate(attrs)

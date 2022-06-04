@@ -20,7 +20,7 @@ class TodoListCreateView(generics.ListCreateAPIView):
 class TodoDetails(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TodoSerializer
     permission_classes = (IsOwnerOnly,)
-    lookup_field = 'id'
+    lookup_field = 'pk'
 
     def get_queryset(self):
         return Todo.objects.filter(owner=self.request.user)
